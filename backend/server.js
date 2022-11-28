@@ -36,7 +36,7 @@ const db = require("./config/key").mongoURI;
 // Connect to MongoDB
 mongoose
   .connect(db)
-  .then(() => console.log("MongoDB connected..."))
+  .then(() => console.log("MongoDB connected woooo"))
   .catch((err) => console.log("MongoDB error: " + err));
 
 // 2- Add Routes API ./routes/api
