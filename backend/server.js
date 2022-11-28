@@ -18,11 +18,11 @@ app.use(cors());
 //set static folder
 app.use(express.static(path.join(__dirname, "public")));
 const users = require("./routes/api/users");
-
+const employees = require("./routes/api/employees");
 
 
 app.use("/api/users", users);
-
+app.use("/api/employees", employees);
 //passport middlleware
 
 // 1- Add DB config
