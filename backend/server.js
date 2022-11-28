@@ -20,10 +20,12 @@ app.use(express.static(path.join(__dirname, "public")));
 const users = require("./routes/api/users");
 const employees = require("./routes/api/employees");
 const articles = require("./routes/api/articles");
+const clients = require("./routes/api/clients");
 
 app.use("/api/users", users);
 app.use("/api/employees", employees);
 app.use("/api/articles", articles);
+app.use("/api/clients", clients);
 //passport middlleware
 
 // 1- Add DB config
