@@ -11,20 +11,16 @@ services:
   build: backend # specify the directory of the Dockerfile
   ports:
     - "5000:8090" #specify ports mapping
-  volumes:
-    - ./:/app
+  
   links:
     - mongo # link this service to the database service
   depends_on:
     - mongo
-  restart: unless-stopped
+  restart: always
  
  mongo:
   container_name: mongo
   image: mongo
-  volumes:
-    - ./data:/data/db
   ports:
-    - '27017:27017'
-  securityContext:
-    runAsUser: 0
+    - '27017:2017'
+    
