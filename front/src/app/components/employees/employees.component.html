@@ -1,0 +1,234 @@
+
+<flash-messages></flash-messages>
+
+<div class="ctn">
+  <app-sidebar></app-sidebar>
+  <div class="container" style="margin-left: 230px; position: fixed;" >
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            <button  class="btn btn-success"  (click)="open(addEmp)">Ajouter Employee</button>
+          </div>
+          <div class="col-4">
+            <form #f="ngForm">
+               <div class="form-group">
+                 <label for="keyword">Recherche</label>
+                 <input  placeholder="Tapez votre mot de clet de recherche ici!!" type="text" name="keyword" id="keyword" class="form-control" name="recherche" >
+               </div>
+            </form>
+          </div>
+          <div class="col-4">
+            <form #f1="ngForm">
+              <div class="form-group">
+                <label for="id">Filtre par categorie</label>
+                  <select   class="form-control" ngModel  name="critere" id="slct"  >
+                    <option value="">Choisier un critere</option>
+                    <option value="cin">CIN</option>
+                    <option value="nom">nom</option>
+                    <option value="telephone">Telephone</option>
+                    <option value="email">Email</option>
+                  </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <h4  class="card-title">Liste des employees</h4>
+        <div class="row">
+            <table class="table table-hover" >
+              <thead>
+              <tr>
+
+                <th scope="col">CIN</th>
+                <th scope="col">Nom & Prenom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Categorie</th>
+                <th scope="col">Telephone</th>
+                <th colspan="3">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor = "let emp of employees " >
+                  <td >
+                    {{emp.cin}}
+                  </td>
+                  <td >
+                    {{emp.nom}} {{emp.prenom}}
+                  </td>
+                  <td >
+                    {{emp.mail}}
+                  </td>
+                  <td >
+                    {{emp.categorie}}
+                  </td>
+                  {{emp.telephone}}
+                  <td >
+
+                  </td>
+                  <td><a class="btn-info btn" (click)="openUpdate(update,emp)" >Modifier</a></td>
+              <td><a  class="btn-danger btn" (click)="openDelete(contentDelete, emp._id)">Supprimer</a></td>
+                </tr>
+              </tbody>
+            </table>
+          <ul  class="pagination">
+            <li >
+              <a class="clickable"> 1</a>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #addEmp let-modal>
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Nouveau Client</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm"  novalidate>
+        <div class="form-group">
+          <label for="cin">CIN</label>
+          <div class="input-group">
+            <input id="cin" class="form-control" name="cin" [(ngModel)]="emp.cin">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <div class="input-group">
+            <input id="nom" class="form-control"  name="nom"  [(ngModel)]="emp.nom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prenom">Prenom</label>
+          <div class="input-group">
+            <input id="prenom" class="form-control"   name="prenom" [(ngModel)]="emp.prenom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tel">Telephone</label>
+          <div class="input-group">
+            <input id="tel" class="form-control"name="telephone" [(ngModel)]="emp.telephone">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mail">Email</label>
+          <div class="input-group">
+            <input id="mail" class="form-control"name="mail" [(ngModel)]="emp.mail">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sal">Salaire</label>
+          <div class="input-group">
+            <input id="sal" class="form-control"name="sal" [(ngModel)]="emp.salaire">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="categorie">Categorie</label>
+          <div class="input-group">
+            <select class="form-control" [(ngModel)]="emp.categorie"  name="categ" id="categ" >
+
+              <option value="Vendure">Vendeu(re)/se</option>
+              <option value="gerant">Gérrant</option>
+              <option value="commercial">Commercial(e)</option>
+              <option value="Femme de menage">Femme de menage</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-info" (click)="submit()">Submit</button>
+        </div>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Confirm Delete</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are you sure you want to delete this client.</h2>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-danger" (click)="delete()" >Yes, Delete!</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
+    </div>
+  </ng-template>
+
+
+
+
+  <ng-template #update let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Modifier Employee</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm"  novalidate>
+        <div class="form-group">
+          <label for="cin">Cin</label>
+          <div class="input-group">
+            <input id="cin" class="form-control"  name="cin" [(ngModel)]="emp.cin">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <div class="input-group">
+            <input id="nom" class="form-control"  name="nom" [(ngModel)]="emp.nom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prenom">Prenom</label>
+          <div class="input-group">
+            <input id="prenom" class="form-control"   name="prenom" [(ngModel)]="emp.prenom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tel">Telephone</label>
+          <div class="input-group">
+            <input id="tel" class="form-control" name="telephone" [(ngModel)]="emp.telephone">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group">
+            <input id="email" class="form-control" name="email" [(ngModel)]="emp.mail">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="categorie">Categorie</label>
+          <div class="input-group">
+            <select class="form-control" [(ngModel)]="emp.categorie"  name="categ" id="categ" >
+
+              <option value="Vendure">Vendeu(re)/se</option>
+              <option value="gerant">Gérrant</option>
+              <option value="commercial">Commercial(e)</option>
+              <option value="Femme de menage">Femme de menage</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-info" (click)="modifier()" >Modifer</button>
+        </div>
+    </div>
+
+  </ng-template>

@@ -1,0 +1,39 @@
+<div class="header">
+  <div class="header_wrapper">
+    <div class="logo_icon_wrapper">
+      <div class="logo-details" >
+
+        <div style="margin-top: 50px;font-family: initial;font-weight: bold;font-size: 40px;">
+          <span style="color: #E68;font-size: 60px;">
+            MY</span><span style="color: #4DAAA7;" >S</span><span style="color: #4DAAA7;">TORE</span>
+        </div>
+        <span class="username"style="color: #E68;font-size: 30px;" *ngIf="!notlogged && !isadmin">
+          [{{user.username}}]</span>
+          </div>
+
+
+    </div>
+    <div class="nav_search_wrapper">
+      <div class="navigation">
+        <ul style="margin-top: 15px;">
+
+          <li title="home" ><a routerLink="/EspaceClient/profile" *ngIf="!notlogged && !isadmin" >Les produits</a></li>
+          <li title="home" ><a routerLink="/EspaceClient/list-promo" *ngIf="!notlogged && !isadmin" >Les Promotions</a></li>
+          <li title="home" ><a routerLink="/EspaceClient/list-facture" *ngIf="!notlogged && !isadmin" >Les Factures</a></li>
+          <li title="home" ><a routerLink="/" *ngIf="notlogged || isadmin" >home</a></li>
+          <li><a href="" *ngIf="notlogged || isadmin">About</a></li>
+          <li><a href="" *ngIf="notlogged || isadmin">Conatct</a></li>
+
+
+          <li><a routerLink="/EspaceClient/login" *ngIf="notlogged || isadmin" >Login/Register</a></li>
+
+          <li><a routerLink="/EspaceClient/profile" (click)="logout()" *ngIf="!notlogged && !isadmin" style="margin-left: -150px;"  >LogOut</a></li>
+        </ul>
+      </div>
+      <div class="search-btn">
+        <input type="text" name="" placeholder="search something here">
+        <a href=""><i class="fas fa-search"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

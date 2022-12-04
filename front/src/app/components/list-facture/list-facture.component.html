@@ -1,0 +1,21 @@
+<app-nav-bar></app-nav-bar>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Numero</th>
+      <th scope="col">Date</th>
+      <th scope="col">Total</th>
+      <th scope="col">Mode de payement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor = "let facture of factures ">
+      <th scope="row">{{facture.numFact}}</th>
+      <td>{{facture.dateFact |date}}</td>
+      <td>{{facture.total}}</td>
+      <td>{{facture.modePayement}}</td>
+    </tr>
+
+  </tbody>
+</table>
+

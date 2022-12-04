@@ -1,0 +1,146 @@
+<div class="body">
+	<app-nav-bar></app-nav-bar>
+
+	<div class="big_image">
+		<div class="main_image">
+			<img src="assets/images/slider.jpg">
+		</div>
+	</div>
+
+
+<!-- product section started -->
+
+	<div class="product">
+		<div class="product_heading">
+			<span><i class="fas fa-angle-double-down"></i></span><h2 style="margin-top: 20px;"> PRODUCTS </h2>
+		</div>
+		<div class="product_pics" >
+			<div class="first"  *ngFor = "let article of articles | slice:0:4; let i=index" style="margin-left: 10px; " >
+				<a href="#">
+					<img [src]="article.image" id="img">
+					<div class="overly-product">
+						<div class="overly-wrapper">
+							<div id="heart"><i class="fas fa-heart"></i></div>
+							<div id="search_plus"><i class="fas fa-search-plus"></i></div>
+							<h2> {{article.designation}}</h2>
+							<h3> {{article.prixUnitaire}} DT</h3>
+
+						</div>
+					</div>
+				</a>
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+
+
+  <div class="product">
+
+		<div class="product_pics" >
+			<div class="first"  *ngFor = "let article of articles | slice:4:8 ; let i=index" style="margin-left: 10px; " >
+				<a href="#">
+					<img [src]="article.image" id="img">
+					<div class="overly-product">
+						<div class="overly-wrapper">
+							<div id="heart"><i class="fas fa-heart"></i></div>
+							<div id="search_plus"><i class="fas fa-search-plus"></i></div>
+							<h2>{{article.designation}}</h2>
+							<h3>{{article.prixUnitaire}} </h3>
+
+						</div>
+					</div>
+				</a>
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+
+	<!-- product section started -->
+
+
+
+<!-- resent post sectio-->
+
+
+	<!-- and resent post area -->
+
+
+
+	<!-- Subscribe section -->
+  <section id="subscribe">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="subscribe-area">
+            <div class="h3">Subscribe our newsletter </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
+            <form action="" class="subscribe-form">
+              <input type="email" name="" id="" placeholder="Enter your Email" class="subscibe_email">
+              <a href="#"><input type="submit" value="Subscribe" class="subscribe_submit"></a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Subscribe section -->
+
+
+  <!--start footer section   -->
+	<div id="footer" class="footer-distributed">
+			<div class="footer-left">
+				<h3>Fashion<span>Site</span></h3>
+				<p class="footer-links">
+					<a href="#">Home</a>
+					·
+					<a href="#">Delivery</a>
+					·
+					<a href="#">Returns</a>
+					·
+					<a href="#">Discount</a>
+					·
+					<a href="#">Special Offer</a>
+					·
+					<a href="#">Contact Us</a>
+				</p>
+				<p class="footer-company-name">WebAceTechnology &copy; 2020</p>
+			</div>
+			<div class="footer-center">
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>200 Revolution Street</span> Karachi, Pakistan</p>
+				</div>
+
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+92 555 123456</p>
+				</div>
+
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:support@company.com">contact@webacetechnology.com</a></p>
+				</div>
+			</div>
+			<div class="footer-right">
+				<p class="footer-company-about">
+					<span>About the company</span>
+					Web Ace Technology is a blog for web designers, graphic designers, web developers &amp; SEO Learner.
+				</p>
+				<div class="footer-icons">
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-linkedin"></i></a>
+					<a href="#"><i class="fa fa-github"></i></a>
+				</div>
+			</div>
+		</div>
+
+</div>

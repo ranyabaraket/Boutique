@@ -1,0 +1,330 @@
+
+
+
+<div class="ctn">
+  <app-sidebar></app-sidebar>
+  <div class="container" style="margin-left: 230px; position: fixed;" >
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            <button  class="btn btn-success" (click)="open(addArticle)">Ajouter Article</button>
+          </div>
+          <div class="col-4">
+            <form #f="ngForm">
+               <div class="form-group">
+                 <label for="keyword">Recherche</label>
+                 <input  placeholder="Tapez votre mot de clet de recherche ici!!" type="text" name="keyword" id="keyword" class="form-control" name="recherche" (change)="search()" [(ngModel)]="cherche">
+               </div>
+            </form>
+          </div>
+          <div class="col-4">
+            <form #f1="ngForm">
+              <div class="form-group">
+                <label for="id">Filtre par categorie</label>
+                  <select class="form-control" name="critere" id="slct"  (change)="setSelectCriter($event)"  >
+                    <option value="">Choisier un critere</option>
+                    <option value="num">Num Article</option>
+                    <option value="nom">nom</option>
+                    <option value="designation">Designation</option>
+                    <option value="ptix">Prix Unitaire</option>
+                  </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <h4  class="card-title">Liste des articles</h4>
+        <div class="row">
+            <table class="table table-hover" >
+              <thead>
+              <tr >
+
+                <th scope="col">Num Article</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Designation</th>
+                <th scope="col">Prix Unitaire</th>
+                <th scope="col">Image</th>
+                <th colspan="3">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor = "let article of articles " >
+                  <td >
+                    {{article.numArticle}}
+                  </td>
+                  <td >
+                      {{article.nom}}
+                  </td>
+                  <td >
+                    {{article.designation}}
+                  </td>
+                  <td >
+                    {{article.prixUnitaire}}
+                  </td>
+                  <td >
+                   <img [src]="article.image" width="50px" height="50px">
+                  </td>
+                  <td><a class="btn-warning btn" (click)="openUpdate(update, article)" >Modifier</a></td>
+                  <td><a class="btn-info btn" (click)="openDeatils(details, article)" >Details</a></td>
+              <td><a  class="btn-danger btn" (click)="openDelete(contentDelete, article._id)">Supprimer</a></td>
+                </tr>
+              </tbody>
+            </table>
+          <ul  class="pagination">
+            <li >
+              <a class="clickable"> 1</a>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #addArticle let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Nouveau Article</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm"  novalidate>
+        <div class="form-group">
+          <label for="numArticle">Num Article</label>
+          <div class="input-group">
+            <input id="numArticle" class="form-control"name="numArticle" [(ngModel)]="article.numArticle" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <div class="input-group">
+            <input id="nom" class="form-control"  name="nom" [(ngModel)]="article.nom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="designation">Designation</label>
+          <div class="input-group">
+            <input id="designation" class="form-control"  name="designation" [(ngModel)]="article.designation">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prixUnitaire">Prix Unitaire</label>
+          <div class="input-group">
+            <input id="prixUnitaire" class="form-control" name="prixUnitaire" [(ngModel)]="article.prixUnitaire">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="TVA">TVA</label>
+          <div class="input-group">
+            <input id="TVA" class="form-control" name="TVA" [(ngModel)]="article.TVA">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="stock">Stock</label>
+          <div class="input-group">
+            <input id="stock" class="form-control" name="stock" [(ngModel)]="article.stock">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="promotion">Promotion</label>
+          <div class="input-group">
+            <input id="promotion" class="form-control" name="promotion" [(ngModel)]="article.promotion">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="categorie">Categorie</label>
+          <div class="input-group">
+            <input id="categorie" class="form-control" name="categorie" [(ngModel)]="article.categorie">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="tel">Image</label>
+          <div class="input-group">
+            <input id="prix" class="form-control" name="prix" type="file" (change)="select($event)">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-info" (click)="submit()" >Submit</button>
+        </div>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Confirm Delete</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are you sure you want to delete this article.</h2>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-danger" (click)="delete()">Yes, Delete!</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
+    </div>
+  </ng-template>
+
+
+
+  <ng-template #update let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Modifier Article</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm"  novalidate>
+        <div class="form-group">
+          <label for="numArticle">Num Article</label>
+          <div class="input-group">
+            <input id="numArticle" class="form-control"  [(ngModel)]="article.numArticle" name="numar">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <div class="input-group">
+            <input id="nom" class="form-control" [(ngModel)]="article.nom" name="nom" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="designation">Designation</label>
+          <div class="input-group">
+            <input id="designation" class="form-control"  [(ngModel)]="article.designation" name="designation">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prixUnitaire">Prix Unitaire</label>
+          <div class="input-group">
+            <input id="prixUnitaire" class="form-control"[(ngModel)]="article.prixUnitaire" name="prixUnitaire">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="TVA">TVA</label>
+          <div class="input-group">
+            <input id="TVA" class="form-control"[(ngModel)]="article.TVA" name="TVA">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="stock">Stock</label>
+          <div class="input-group">
+            <input id="stock" class="form-control"[(ngModel)]="article.stock" name="stock">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="categorie">Categorie</label>
+          <div class="input-group">
+            <input id="categorie" class="form-control"[(ngModel)]="article.categorie" name="categorie">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="promotion">Promotion</label>
+          <div class="input-group">
+            <input id="promotion" class="form-control"[(ngModel)]="article.promotion" name="promotion">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="image">Image</label>
+          <div class="input-group">
+            <input id="image" class="form-control" type="file" (change)="select($event)">
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-info"  (click)="modifier()">Modifer</button>
+        </div>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template #details let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"> Article Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm"  novalidate>
+        <div class="form-group">
+          <label for="numArticle">Num Article</label>
+          <div class="input-group">
+            <input id="numArticle" class="form-control"  [(ngModel)]="article.numArticle" name="numar" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <div class="input-group">
+            <input id="nom" class="form-control" [(ngModel)]="article.nom" name="nom" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="designation">Designation</label>
+          <div class="input-group">
+            <input id="designation" class="form-control"  [(ngModel)]="article.designation" name="designation" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prixUnitaire">Prix Unitaire</label>
+          <div class="input-group">
+            <input id="prixUnitaire" class="form-control"[(ngModel)]="article.prixUnitaire" name="prixUnitaire" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="TVA">TVA</label>
+          <div class="input-group">
+            <input id="TVA" class="form-control"[(ngModel)]="article.TVA" name="TVA" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="stock">Stock</label>
+          <div class="input-group">
+            <input id="stock" class="form-control"[(ngModel)]="article.stock" name="stock" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="categorie">Categorie</label>
+          <div class="input-group">
+            <input id="categorie" class="form-control"[(ngModel)]="article.categorie" name="categorie" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="promotion">Promotion</label>
+          <div class="input-group">
+            <input id="promotion" class="form-control"[(ngModel)]="article.promotion" name="promotion" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="image">Image</label>
+
+          <div class="input-group">
+            <img [src]="article.image" style="width: 200px ;height: 200px;">
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+
+    </div>
+
+  </ng-template>

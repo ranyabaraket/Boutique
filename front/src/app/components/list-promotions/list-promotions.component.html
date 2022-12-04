@@ -1,0 +1,64 @@
+<app-nav-bar></app-nav-bar>
+<div class="product">
+  <div class="product_heading">
+    <span><i class="fas fa-angle-double-down"></i></span><h2 style="margin-top: 20px;"> PRODUCTS </h2>
+  </div>
+  <div class="product_pics" >
+    <div class="first"  *ngFor = "let article of promotions | slice:0:4; let i=index" style="margin-left: 10px; " >
+      <a href="#">
+        <img [src]="article.image" id="img">
+
+        <div class="overly-product">
+          <div class="overly-wrapper">
+            <div id="heart"><i class="fas fa-heart"></i></div>
+            <div id="search_plus"><i class="fas fa-search-plus"></i></div>
+            <h2 style="color: rgb(97, 18, 18);font-weight: bold;font-size: 30px;"> Prix ancien: {{article.prixUnitaire}} dt</h2>
+            <h3 style="color: rgb(19, 70, 19);font-weight: bold;font-size: 30px;;"> Nouveau prix: {{article.prixUnitaire-(article.prixUnitaire*0.5)}} DT</h3>
+
+          </div>
+        </div>
+      </a>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+
+<div class="product">
+
+  <div class="product_pics" >
+    <div class="first"  *ngFor = "let article of promotions | slice:4:8 ; let i=index" style="margin-left: 10px; " >
+      <a href="#">
+        <img [src]="article.image" id="img">
+        <div class="overly-product">
+          <div class="overly-wrapper">
+            <div id="heart"><i class="fas fa-heart"></i></div>
+            <div id="search_plus"><i class="fas fa-search-plus"></i></div>
+            <h2>{{article.designation}}</h2>
+            <h3>{{article.prixUnitaire}} </h3>
+
+          </div>
+        </div>
+      </a>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+<!-- product section started -->
+
+
+
+<!-- resent post sectio-->
+
+
+<!-- and resent post area -->
+

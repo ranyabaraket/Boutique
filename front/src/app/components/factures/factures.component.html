@@ -1,0 +1,185 @@
+<div class="ctn">
+  <app-sidebar></app-sidebar>
+  <div class="container" style="margin-left: 230px; position: fixed;" >
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            <button  class="btn btn-success" (click)="open(addArticle)">Ajouter Facture</button>
+          </div>
+          <div class="col-4">
+            <form #f="ngForm">
+               <div class="form-group">
+                 <label for="keyword">Recherche</label>
+                 <input  placeholder="Tapez votre mot de clet de recherche ici!!" type="text" name="keyword" id="keyword" class="form-control" name="recherche" (change)="search()" [(ngModel)]="cherche">
+               </div>
+            </form>
+          </div>
+          <div class="col-4">
+            <form #f1="ngForm">
+              <div class="form-group">
+                <label for="id">Filtre par categorie</label>
+                  <select class="form-control" name="critere" id="slct" (change)="setSelectCriter($event)" >
+                    <option value="">Choisier un critere</option>
+                    <option value="num">Num Facture</option>
+                    <option value="date">date</option>
+                    <option value="client">client</option>
+
+                  </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <h4  class="card-title">Liste de factures</h4>
+        <div class="row">
+            <table class="table table-hover" >
+              <thead>
+              <tr >
+
+                <th scope="col">Num Facture</th>
+                <th scope="col">Date Facture</th>
+                <th scope="col">Total</th>
+                <th scope="col">Mode Payement</th>
+                <th scope="col">Client</th>
+                <th colspan="3">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor = "let facture of factures " >
+                  <td >
+                    {{facture.numFact}}
+                  </td>
+                  <td >
+                      {{facture.dateFact | date}}
+                  </td>
+                  <td >
+                    {{facture.total}}
+                  </td>
+                  <td >
+                    {{facture.modePayement}}
+                  </td>
+                  <td >
+                   {{facture.client}}
+                  </td>
+
+
+              <td><a  class="btn-danger btn" (click)="openDelete(contentDelete, facture._id)" >Supprimer</a></td>
+                </tr>
+              </tbody>
+            </table>
+          <ul  class="pagination">
+            <li >
+              <a class="clickable"> 1</a>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #addArticle let-modal>
+    <flash-messages></flash-messages>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Nouveau Facture</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm"  novalidate>
+        <div class="form-group">
+          <label for="numArticle">Num Facture</label>
+          <div class="input-group">
+            <input id="numArticle" class="form-control"name="numArticle" [(ngModel)]="facture.numFact" >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="prixUnitaire">Client</label>
+          <div class="input-group">
+            <input id="prixUnitaire" class="form-control" name="prixUnitaire" [(ngModel)]="facture.client">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="designation">Mode payemenet</label>
+          <div class="input-group">
+           <select  id="payement" [(ngModel)]="facture.modePayement" name="pay">
+             <option value="espece">Espece</option>
+             <option value="cheque">Cheque</option>
+             <option value="carte">Carte Bancaire</option>
+           </select>
+          </div>
+
+
+
+          <div class="form-group">
+            <label for="prixUnitaire">Article</label>
+            <div class="input-group">
+              <input id="prixUnitaire" class="form-control" name="article"  [(ngModel)]="oneArticle">
+              <button (click)="ajouterAuListe()" >Ajouter article</button>
+            </div>
+          </div>
+
+
+
+
+          <div class="form-group">
+            <label for="prixUnitaire">Liste des achats</label>
+            <div class="input-group">
+              <table  class="table table-striped">
+                <tr>
+                  <td >num article</td><td >prix d'article  </td><td >Action  </td>
+
+                </tr>
+                <tr  *ngFor = "let article of listAchat "  ><td>{{article["num"]}}</td><td name="ok"   >{{article["prix"]}}</td>
+                  <button class="btn-danger  " style="margin-top: 5px; margin-bottom: 5px; " (click)="supprimer(article['num'],article['prix'])">supprimer</button>
+
+
+                </tr>
+
+                </table>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="form-group">
+          <label for="nom">Total</label>
+          <div class="input-group">
+            <input id="nom" class="form-control"  name="nom" [(ngModel)]="total" disabled>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-success" (click)="submit()" >Submit</button>
+        </div>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Confirm Delete</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are you sure you want to delete this article.</h2>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-danger" (click)="delete()">Yes, Delete!</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
+    </div>
+  </ng-template>
+
+
+
