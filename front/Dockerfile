@@ -8,5 +8,5 @@ RUN npm ci && npm run build
 # stage 2
 
 FROM nginx:alpine
-COPY --from=my-app-build /app/dist/front /usr/share/nginx/html
+COPY --from=my-app-build /app/dist/v1 /usr/share/nginx/html
 EXPOSE 4200
